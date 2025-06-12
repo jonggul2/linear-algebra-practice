@@ -9,11 +9,23 @@
 """
 
 # %%
-# 라이브러리 설치
-# !pip install numpy matplotlib sklearn pandas
+# --- 라이브러리 설치 ---
+import subprocess
+import sys
 
-# %%
-# 라이브러리 불러오기
+def install_if_not_exists(package):
+    try:
+        __import__(package)
+    except ImportError:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+install_if_not_exists("numpy")
+install_if_not_exists("matplotlib")
+install_if_not_exists("sklearn")
+install_if_not_exists("pandas")
+
+
+# --- 라이브러리 불러오기 ---
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans

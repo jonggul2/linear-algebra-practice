@@ -6,19 +6,29 @@
 # %% [markdown]
 """
 ### 준비하기: 라이브러리 설치 및 불러오기
+
+본 실습에서는 데이터 분석과 과학 계산의 필수 도구인 `numpy`와, 데이터 시각화를 위한 `matplotlib` 라이브러리를 사용합니다.
+아래 코드는 라이브러리들이 설치되어 있는지 확인하고, 만약 없다면 자동으로 설치합니다.
 """
 
 # %%
-# 라이브러리 설치
-# !pip install numpy matplotlib
+# --- 라이브러리 설치 ---
+import subprocess
+import sys
 
-# %%
-# 라이브러리 불러오기
+def install_if_not_exists(package):
+    try:
+        __import__(package)
+    except ImportError:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+install_if_not_exists("numpy")
+install_if_not_exists("matplotlib")
+
+
+# --- 라이브러리 불러오기 ---
 import numpy as np
 import matplotlib.pyplot as plt
-
-# 재현성을 위해 랜덤 시드 고정
-np.random.seed(0)
 
 # %% [markdown]
 """
