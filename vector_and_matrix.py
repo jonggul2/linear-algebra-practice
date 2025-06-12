@@ -6,29 +6,19 @@
 # %% [markdown]
 """
 ### 준비하기: 라이브러리 설치 및 불러오기
-
-본 실습에서는 데이터 분석과 과학 계산의 필수 도구인 `numpy`와, 데이터 시각화를 위한 `matplotlib` 라이브러리를 사용합니다.
-아래 코드는 두 라이브러리가 설치되어 있는지 확인하고, 만약 없다면 자동으로 설치합니다.
 """
 
 # %%
-# --- 라이브러리 설치 ---
-import subprocess
-import sys
+# 라이브러리 설치
+# !pip install numpy matplotlib
 
-def install_if_not_exists(package):
-    try:
-        __import__(package)
-    except ImportError:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-install_if_not_exists("numpy")
-install_if_not_exists("matplotlib")
-
-
-# --- 라이브러리 불러오기 ---
+# %%
+# 라이브러리 불러오기
 import numpy as np
 import matplotlib.pyplot as plt
+
+# 재현성을 위해 랜덤 시드 고정
+np.random.seed(0)
 
 # %% [markdown]
 """
@@ -590,9 +580,13 @@ try:
     print("A의 역행렬 A⁻¹:\n", A_inverse)
     print("-" * 20)
 
-    # A @ A⁻¹가 단위 행렬인지 확인 (부동소수점 오차 감안)
+    # A @ A⁻¹가 단위 행렬인지 확인 (부동소수점 오차를 고려)
     identity_check = A_inv_source @ A_inverse
-    print("A @ A⁻¹ (단위 행렬 확인):\n", np.round(identity_check, decimals=10))
+    print("A @ A⁻¹ 결과:\n", identity_check)
+
+    # np.allclose()를 이용한 단위 행렬 검증
+    is_identity = np.allclose(identity_check, np.identity(2))
+    print(f"\n결과가 단위 행렬과 매우 가깝습니까? -> {is_identity}")
 
 except np.linalg.LinAlgError as e:
     print("오류:", e)
