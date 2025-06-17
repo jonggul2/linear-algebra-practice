@@ -1,5 +1,1 @@
 *.py
-*.ipynb
-!linear_algebra_practice_day1.ipynb
-!linear_algebra_practice_day2.ipynb
-!linear_algebra_practice_day3.ipynb
